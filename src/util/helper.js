@@ -1,3 +1,5 @@
+const url = "https://www.google.com"
+
 let printDate = new Date();  
 console.log(printDate.getDate()); 
 
@@ -9,6 +11,7 @@ let getBatchInfo = function(){
  return "done" 
 }
 
+module.exports.myUrl = url
 module.exports.newDate = printDate
 module.exports.newMonth = printMonth
 module.exports.newBatch = getBatchInfo
