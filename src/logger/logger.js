@@ -5,7 +5,7 @@ let printSomething = function() {
     return "done"
 }
 let Welcome = function() {
-    console.log("Welcome to my application. I am Anurag Khare and a part of FunctionUp Lithium cohort.")
+    console.log("Welcome to my application. I am ashi shrivastava  and a part of FunctionUp Lithium cohort.")
     return "done"
 }
 
