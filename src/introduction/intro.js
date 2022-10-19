@@ -1,4 +1,4 @@
-const batchName = "Plutonium"
+const batchName = "lithium"
 
 let printName = function() {
     console.log('Bathc name is ', batchName)
