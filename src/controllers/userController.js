@@ -44,9 +44,18 @@ const dummyTwo = function (req, res) {
     if (req.wantsJson) res.send({msg: "another example response"})
     else res.send("another example response")
 }
+//==============================================================================================================================
+
+const createNewUser1= async function (req, res) {
+    let data = req.body
+    let createNewUser1 = await UserModel.create(data)
+    res.send({data: createNewUser1})
+
+}
 
 module.exports.createUser= createUser
 module.exports.getUsersData= getUsersData
 module.exports.basicCode= basicCode
 module.exports.dummyOne = dummyOne
 module.exports.dummyTwo = dummyTwo
+module.exports.createNewUser1= createNewUser1
