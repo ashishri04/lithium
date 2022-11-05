@@ -34,16 +34,16 @@ const loginUser = async function (req, res) {
   let token = jwt.sign(
     {
       userId: user._id.toString(),
-      batch: "thorium",
+      batch: "lithium",
       organisation: "FunctionUp",
     },
-    "functionup-plutonium-very-very-secret-key"
-  );
+    "functionup-lithium-very-very-secret-key");
   res.setHeader("x-auth-token", token);
   res.send({ status: true, token: token });
 };
 
 const getUserData = async function (req, res) {
+
   let token = req.headers["x-Auth-token"];
   if (!token) token = req.headers["x-auth-token"];
 
@@ -61,7 +61,7 @@ const getUserData = async function (req, res) {
   // Decoding requires the secret again. 
   // A token can only be decoded successfully if the same secret was used to create(sign) that token.
   // And because this token is only known to the server, it can be assumed that if a token is decoded at server then this token must have been issued by the same server in past.
-  let decodedToken = jwt.verify(token, "functionup-plutonium-very-very-secret-key");
+  let decodedToken = jwt.verify(token, "functionup-lithium-very-very-secret-key");
   if (!decodedToken)
     return res.send({ status: false, msg: "token is invalid" });
 
@@ -79,20 +79,45 @@ const updateUser = async function (req, res) {
   // Check if the token is present
   // Check if the token present is a valid token
   // Return a different error message in both these cases
-
   let userId = req.params.userId;
   let user = await userModel.findById(userId);
   //Return an error if no user with the given id exists in the db
   if (!user) {
     return res.send("No such user exists");
   }
+   let updatedMobile = req.body.mobile;
+   let updatedUser = await userModel.findOneAndUpdate({ _id: userId }, { $set: { mobile: updatedMobile } }, { new: true })
 
-  let userData = req.body;
-  let updatedUser = await userModel.findOneAndUpdate({ _id: userId }, userData);
-  res.send({ status: updatedUser, data: updatedUser });
+  res.send({ status: "true", data: updatedUser });
+
+  //==========================================================================================================
+  // let updatedName = req.body.firstName;
+  // let updatedName1 = await userModel.findOneAndUpdate({ _id: userId }, { $set: { firstName: updatedName } }, { new: true })
+
+  // res.send({ status: "Done", data: updatedName1 });
 };
+//====================================================================================================================
+
+const deleteUserData = async function (req, res) {
+
+  let userId = req.params.userId;
+  // if (!user) {
+    // return res.send("No such user exists");
+  // }
+ // let updatedIsDeleted = req.body.isDeleted;
+  let deleteUserData= await userModel.findByIdAndDelete(userId)
+  res.send({IsDeleted: "true", data: deleteUserData });
+ 
+  //DELETE YOUR RECORD WITH YOUR PARAM.
+
+}
+
+
 
 module.exports.createUser = createUser;
 module.exports.getUserData = getUserData;
 module.exports.updateUser = updateUser;
 module.exports.loginUser = loginUser;
+module.exports.deleteUserData = deleteUserData;
+
+
