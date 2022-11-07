@@ -31,10 +31,10 @@ const loginUser = async function (req, res) {
   let token = jwt.sign(
     {
       userId: user._id.toString(),
-      batch: "thorium",
+      batch: "lithium",
       organisation: "FUnctionUp",
     },
-    "functionup-thorium"
+    "functionup-lithium"
   );
   res.setHeader("x-auth-token", token);
   res.send({ status: true, data: token });
@@ -54,7 +54,7 @@ const getUserData = async function (req, res) {
   // Input 1 is the token to be decoded
   // Input 2 is the same secret with which the token was generated
   // Check the value of the decoded token yourself
-  let decodedToken = jwt.verify(token, "functionup-thorium");
+  let decodedToken = jwt.verify(token, "functionup-lithium");
   if (!decodedToken)
     return res.send({ status: false, msg: "token is invalid" });
 
@@ -91,7 +91,7 @@ const postMessage = async function (req, res) {
     // Return a different error message in both these cases
     let token = req.headers["x-auth-token"]
     if(!token) return res.send({status: false, msg: "token must be present in the request header"})
-    let decodedToken = jwt.verify(token, 'functionup-thorium')
+    let decodedToken = jwt.verify(token, 'functionup-lithium')
 
     if(!decodedToken) return res.send({status: false, msg:"token is not valid"})
     
@@ -112,7 +112,16 @@ const postMessage = async function (req, res) {
     let updatedUser = await userModel.findOneAndUpdate({_id: user._id},{posts: updatedPosts}, {new: true})
 
     //return the updated user document
+
     return res.send({status: true, data: updatedUser})
+}
+const deleteUserData = async function (req, res) {
+
+  let userId = req.params.userId;
+  let deleteUserData= await userModel.findByIdAndDelete(userId)
+  res.send({IsDeleted: "true", data: deleteUserData });
+ 
+  //DELETE YOUR RECORD WITH YOUR PARAM.
 }
 
 module.exports.createUser = createUser;
@@ -120,3 +129,7 @@ module.exports.getUserData = getUserData;
 module.exports.updateUser = updateUser;
 module.exports.loginUser = loginUser;
 module.exports.postMessage = postMessage
+module.exports.deleteUserData = deleteUserData
+
+
+
