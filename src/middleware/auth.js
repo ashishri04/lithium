@@ -11,7 +11,6 @@ const authenticate = function (req, req, next) {
         if (!decodedToken)
             return res.send({ status: false, msg: "token is invalid" });
 
-        next();
     } catch (error) {
         console.error(error)
         res.status(401).send({ message: "Token Invalid" })
