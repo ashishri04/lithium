@@ -9,7 +9,7 @@ const authorSchema = new mongoose.Schema({
       minlength: 2,
       maxlength: 20,
       required: "Fname is required",
-     // match:  /^\\w+$/
+      // match:  /^\\w+$/
 
    },
    lname: {
@@ -20,7 +20,7 @@ const authorSchema = new mongoose.Schema({
       minlength: 2,
       maxlength: 20,
       required: "Lname is required",
-     // match: /^\\w+$/
+      // match: /^\\w+$/
    },
    title: {
       type: String,
@@ -29,7 +29,6 @@ const authorSchema = new mongoose.Schema({
       enum: ["Mr", "Mrs", "Miss"],
    },
    email: {
-
       type: String,
       trim: true,
       lowercase: true,
@@ -42,9 +41,9 @@ const authorSchema = new mongoose.Schema({
       type: String,
       trim: true,
       required: "Password is required",
-     // match: /^(?=.\d)(?=.[!@#$%^&])(?=.[a-z])(?=.*[A-Z]).{8,}$/
+      // match: /^(?=.\d)(?=.[!@#$%^&])(?=.[a-z])(?=.*[A-Z]).{8,}$/
 
    }
 
 }, { timestamps: true });
-module.exports = mongoose.model('Author', authorSchema)
+module.exports = mongoose.model('Author', authorSchema) 

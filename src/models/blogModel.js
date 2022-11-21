@@ -6,7 +6,7 @@ const blogSchema = new mongoose.Schema(
         title: {
             type: String,
             trim: true,
-            required: "Title is required",
+            required: "Title is required",  
             unique: true
         },
         body: {
@@ -40,7 +40,6 @@ const blogSchema = new mongoose.Schema(
             type: Boolean,
             default: false,
         },
-
         publishedAt: {
             type: Date,
             default: Date.now()

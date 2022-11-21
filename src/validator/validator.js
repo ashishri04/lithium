@@ -3,8 +3,10 @@ const isValid = function (value) {
 
     if (typeof value === 'string' && value.trim().length === 0) return false
 
-    return true; 
+    return true;
 }
+//======validation for empty body===========
+
 
 const isValidRequestBody = function
     (requestBody) {
@@ -12,4 +14,4 @@ const isValidRequestBody = function
         0;
 }
 
-module.exports={isValid,isValidRequestBody}
+module.exports = { isValid, isValidRequestBody }

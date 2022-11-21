@@ -1,7 +1,7 @@
 const blogModel = require("../models/blogModel")
 const jwt = require("jsonwebtoken");
 
-const {isValid,isValidRequestBody} = require("../validator/validator")
+const { isValid, isValidRequestBody } = require("../validator/validator")
 const { isValidObjectId } = require("mongoose")
 
 const authorModel = require("../models/authorModel")
@@ -61,32 +61,31 @@ const createBlog = async function (req, res) {
 
 //======================================== delete query =======================================================
 
-const deleteByQuery= async function(req,res){
-    try
-       {  
-        const data=req.query 
-      const {category, authorId, tags, subcategory,isPublished}=data
-      if(Object.keys(data).length==0){
-       return res.status(400).send({status:false,msg:"no data is provided"})
-      }
-      if(isPublished==true){
-       return res.status(400).send({status:false,msg:"blog is published"})
-      }
-   
-      const deletedBlogs=await blogModel.updateMany(
-       data,
-      {isDeleted:true,deletedAt:new Date()},
-      {new:true}
-       )
-       if(deletedBlogs.modifiedCount == 0){
-           return res.status(404).send({status:false,msg:"blog not found"})
-       }
-       return res.status(200).send({status:true,msg:deletedBlogs})
-   }
-   catch(error){
-       return res.status(500).send({status:false,msg:error.message})
-   }
-   };
+const deleteByQuery = async function (req, res) {
+    try {
+        const data = req.query
+        const { category, authorId, tags, subcategory, isPublished } = data
+        if (Object.keys(data).length == 0) {
+            return res.status(400).send({ status: false, msg: "no data is provided" })
+        }
+        if (isPublished == true) {
+            return res.status(400).send({ status: false, msg: "blog is published" })
+        }
+
+        const deletedBlogs = await blogModel.updateMany(
+            data,
+            { isDeleted: true, deletedAt: new Date() },
+            { new: true }
+        )
+        if (deletedBlogs.modifiedCount == 0) {
+            return res.status(404).send({ status: false, msg: "blog not found" })
+        }
+        return res.status(200).send({ status: true, msg: deletedBlogs })
+    }
+    catch (error) {
+        return res.status(500).send({ status: false, msg: error.message })
+    }
+};
 
 //============================================delete blog by path param ==========================================
 const deleteBlog = async function (req, res) {
@@ -96,7 +95,7 @@ const deleteBlog = async function (req, res) {
 
         let deleteBlog = await blogModel.findByIdAndUpdate({ _id: blogId }, { $set: { isDeleted: true } }, { new: true })
         res.status(200).send({ status: true, msg: deleteBlog })
-        
+
         if (!deleteBlog) res.status(404).send({ status: false, msg: "Blogs are not found" })
     }
     catch (error) {
@@ -195,4 +194,4 @@ const getBlog = async function (req, res) {
 }
 
 
-module.exports = { createBlog, getBlog, updateBlog, deleteBlog, deleteByQuery}
+module.exports = { createBlog, getBlog, updateBlog, deleteBlog, deleteByQuery }
